@@ -12,6 +12,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 /**
  *
@@ -36,15 +37,15 @@ public class Main {
 
                 message = new BufferedReader(new InputStreamReader(clientSocket.getInputStream())).readLine();
 
-                if (message.substring(0, 16).equals("sendMessageXyz_:")) {
-                    listMessage.add(message.split("sendMessageXyz_")[1]);
+                if (message.substring(0, 15).equals("sendMessageXyz_")) {
+                    listMessage.add(UUID.randomUUID().toString() + "__SEPID__" + message.split("sendMessageXyz_")[1]);
                 } else {
                     joinMessage = new StringBuilder();
 
-                    for (String elemento : listMessage) {
-                        joinMessage.append(elemento).append("_MessageXYZMessage_");
+                    for (String element : listMessage) {
+                        joinMessage.append(element).append("_MessageXYZMessage_");
                     }
-                    
+
                     messageToSend = joinMessage.toString();
 
                     if (!listMessage.isEmpty()) {
